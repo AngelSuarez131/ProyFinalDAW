@@ -46,7 +46,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("androidx.fragment:fragment-ktx:1.8.4")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

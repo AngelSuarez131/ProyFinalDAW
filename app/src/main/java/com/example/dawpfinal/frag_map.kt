@@ -13,8 +13,6 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -27,21 +25,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [frag_map.newInstance] factory method to
- * create an instance of this fragment.
- */
 class frag_map : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
     private val COD_PERMISO_SEGUNDO_PLANO = 100
     private var isPermisos = false
 
@@ -52,11 +36,7 @@ class frag_map : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-
+        verificarPermisos()
     }
 
     override fun onCreateView(
@@ -64,26 +44,107 @@ class frag_map : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_frag_map, container, false)
+        val view = inflater.inflate(R.layout.fragment_frag_map, container, false)
+
+        btMapa = view.findViewById(R.id.bt_Mapa)
+        btMapa.setOnClickListener {
+            val intent = Intent(requireContext(), MapActivity::class.java)
+            startActivity(intent)
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment frag_map.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            frag_map().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun verificarPermisos() {
+        val permisos = arrayListOf(
+            "android.permission.ACCESS_COARSE_LOCATION",
+            "android.permission.ACCESS_FINE_LOCATION"
+        )
+        if (tienePermisos(permisos)) {
+            isPermisos = true
+            permisosConcedidos()
+        } else {
+            solicitarPermisos(permisos)
+        }
+    }
+
+    private fun permisosConcedidos() {
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        try {
+            fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+                if (it != null) {
+                    obtenerUbicacion(it)
+                } else {
+                    Toast.makeText(requireContext(), "No se puede obtener ubicacion", Toast.LENGTH_SHORT).show()
                 }
             }
+            val locationRequest = LocationRequest.Builder(
+                Priority.PRIORITY_HIGH_ACCURACY,
+                30000
+            ).apply {
+                setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
+                setWaitForAccurateLocation(true)
+            }.build()
+
+            locationCallback = object : LocationCallback() {
+                override fun onLocationResult(p0: LocationResult) {
+                    super.onLocationResult(p0)
+                    for (location in p0.locations) {
+                        obtenerUbicacion(location)
+                    }
+                }
+            }
+
+            fusedLocationProviderClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
+        } catch (e: SecurityException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun obtenerUbicacion(it: Location) {
+        Log.i("mensaje", "lat: ${it.latitude} lng: ${it.longitude}")
+    }
+
+    private fun solicitarPermisos(permisosArray: ArrayList<String>) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            requestPermissions(
+                permisosArray.toTypedArray(),
+                COD_PERMISO_SEGUNDO_PLANO
+            )
+        } else {
+            requestPermissions(
+                permisosArray.toTypedArray(),
+                COD_PERMISO_SEGUNDO_PLANO
+            )
+        }
+    }
+
+    private fun tienePermisos(permisosArray: ArrayList<String>): Boolean {
+        return permisosArray.toTypedArray().all { item ->
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                item
+            ) == PackageManager.PERMISSION_GRANTED
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == COD_PERMISO_SEGUNDO_PLANO) {
+            val allPermisosConcedidos = grantResults.all {
+                it == PackageManager.PERMISSION_GRANTED
+            }
+            if (grantResults.isNotEmpty() && allPermisosConcedidos) {
+                permisosConcedidos()
+            }
+        }
     }
 }

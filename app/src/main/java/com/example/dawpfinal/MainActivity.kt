@@ -2,6 +2,9 @@ package com.example.dawpfinal
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +14,9 @@ import com.example.dawpfinal.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    private lateinit var etCodigo: EditText
+    private lateinit var ivTogglePassword: ImageView
+    private var isPasswordVisible: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,6 +39,20 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btSalir.setOnClickListener(){
             finish()
+        }
+        etCodigo = findViewById(R.id.etCodigo)
+        ivTogglePassword = findViewById(R.id.ivTogglePassword)
+
+        ivTogglePassword.setOnClickListener {
+            if (isPasswordVisible) {
+                etCodigo.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                ivTogglePassword.setImageResource(R.drawable.eye)
+            } else {
+                etCodigo.inputType = InputType.TYPE_CLASS_TEXT
+                ivTogglePassword.setImageResource(R.drawable.hide)
+            }
+            etCodigo.setSelection(etCodigo.text.length)
+            isPasswordVisible = !isPasswordVisible
         }
     }
 }

@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var etCodigo: EditText
     private lateinit var ivTogglePassword: ImageView
     private var isPasswordVisible: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -29,8 +30,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val dbHelper = SQLHelper(this)
+
         binding.btInisesion.setOnClickListener {
-            if (binding.etCorreo.text.toString() == "usuario" && binding.etCodigo.text.toString() == "usuario") {
+            val correo = binding.etCorreo.text.toString()
+            val contrasena = binding.etCodigo.text.toString()
+            if (dbHelper.verificarUsuario(correo, contrasena)) {
                 val intent = Intent(this, actMainMenu::class.java)
                 startActivity(intent)
             } else {
@@ -53,6 +58,10 @@ class MainActivity : AppCompatActivity() {
             }
             etCodigo.setSelection(etCodigo.text.length)
             isPasswordVisible = !isPasswordVisible
+        }
+        binding.btRegistrar.setOnClickListener(){
+            val intent  = Intent(this, actRegistrar::class.java)
+            startActivity(intent )
         }
     }
 }

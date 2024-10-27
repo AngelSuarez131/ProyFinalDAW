@@ -43,7 +43,6 @@ class frag_map : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_frag_map, container, false)
 
         btMapa = view.findViewById(R.id.bt_Mapa)

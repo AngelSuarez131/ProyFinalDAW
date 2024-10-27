@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/login"
-    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/registrar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logomero"
-        app:layout_constraintBottom_toTopOf="@+id/lRegistrar"
-        app:layout_constraintTop_toTopOf="@id/login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="8dp"/>
-
+    tools:context=".actRegistrar">
     <LinearLayout
         android:id="@+id/lRegistrar"
         android:layout_width="match_parent"
@@ -30,14 +19,18 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.902">
-        <!--usuario y contraseña : usuario-->
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registrarse"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_gravity="left"/>
 
         <EditText
             android:id="@+id/etCorreo"
@@ -48,7 +41,7 @@
             android:minHeight="48dp" />
 
         <EditText
-            android:id="@+id/etCodigo"
+            android:id="@+id/etContra"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="CONTRASEÑA"
@@ -56,36 +49,24 @@
             android:minHeight="48dp" />
 
         <Button
-            android:id="@+id/btInisesion"
+            android:id="@+id/btRegistrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#1565C0"
-            android:text="Iniciar Sesion"
-            android:textSize="18sp" />
+            android:backgroundTint="#FF6E40"
+            android:text="Registrar usuario"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
         <Button
-            android:id="@+id/btRegistrar"
+            android:id="@+id/btinSesion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
             android:backgroundTint="#00950D0D"
             android:minHeight="48dp"
-            android:text="No tienes cuenta? Registrate"
+            android:text="Ya tienes cuenta? Inicia sesión"
             android:textColor="@color/black"
-            android:textColorHighlight="#3F51B5"
-            android:textSize="16sp"
-            android:textStyle="normal" />
-
-        <Button
-            android:id="@+id/btSalir"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#5D000000"
-            android:text="Salir"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

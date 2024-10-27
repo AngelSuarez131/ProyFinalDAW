@@ -5,10 +5,66 @@
     android:layout_height="match_parent"
     tools:context=".frag_intro">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E8F5E9" />
+        android:background="#DFEBF0"
+        android:padding="16dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:paddingBottom="16dp"
+                android:text="Cebichería El Mero"
+                android:textColor="#303F9F"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:text="Nuestra Misión"
+                android:textColor="#303F9F"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="24dp"
+                android:textStyle="bold"
+                android:text="Ofrecer la auténtica experiencia de una cebicheria norteña,sobretodo destacando la frescura y calidad de nuestros ingredientes en todos nuestros  plato.uscamos brindar a nuestros clientes un ambiente acogedor y familiar, donde puedan disfrutar de platos exquisitos que representen lo mejor de nuestra gastronomia norteña.
+"
+                android:textColor="#303F9F"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:text="Nuestra Visión"
+                android:textColor="#303F9F"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_marginTop="50dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ser reconocidos como la cebichería norteña preferida en Lima y un referente de nuestra gastronomia marina , donde cada visita sea una celebración de los sabores frescos y auténticos del mar. Aspiramos a expandir nuestra propuesta y ser embajadores de la cultura y gastronomía de nuestra region a nivel nacional ."
+                android:textColor="#303F9F"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

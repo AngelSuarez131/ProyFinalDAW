@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btInisesion.setOnClickListener {
-            if (binding.etCorreo.text.toString() == "Usuariotest" && binding.etCodigo.text.toString() == "contra") {
+            if (binding.etCorreo.text.toString() == "usuario" && binding.etCodigo.text.toString() == "usuario") {
                 val intent = Intent(this, actMainMenu::class.java)
                 startActivity(intent)
             } else {
